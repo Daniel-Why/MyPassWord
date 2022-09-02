@@ -11,11 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8sp"
-        android:text="Caution:This is a Demo"
+        android:text="密方个人密码生成软件"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/purple_500"/>
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/login_pwd_layout"
+            android:id="@+id/login_pwd_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="密码"
@@ -37,12 +37,7 @@
         android:layout_height="wrap_content"
         android:text="登录"
         android:layout_gravity="center"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8sp"
-        android:text="By: Daniel Why"
-        android:layout_gravity="center_horizontal"/>
+
 
 
 </LinearLayout>

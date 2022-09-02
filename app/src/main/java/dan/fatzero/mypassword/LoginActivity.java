@@ -22,6 +22,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Intent intent = new Intent(LoginActivity.this,MyPwdMainActivity.class);
+
+
         dbHelper = new MyDatabaseHelper(this,"UserPwd.dp",null,1);
         baseFunc = new BaseFunction();
 
