@@ -2,8 +2,11 @@ package dan.fatzero.mypassword;
 
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.chip.Chip;
 
 import org.apache.commons.lang.StringUtils;
@@ -24,10 +28,13 @@ import java.util.Random;
 
 public class MyPwdMainActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_pwd_main);
+
         EditText setPwsArg1 = findViewById(R.id.setPwsArg1);
         EditText setPwsArg2 = findViewById(R.id.setPwsArg2);
         EditText setPwsSeed = findViewById(R.id.setPwsSeed);
@@ -37,9 +44,13 @@ public class MyPwdMainActivity extends AppCompatActivity {
         Button copy_button = findViewById(R.id.copyButton);
         Chip setPwdCaps = findViewById(R.id.setPwdCaps);
         Chip setPwdSpeChar = findViewById(R.id.setPwdSpeChar);
+        MaterialToolbar materialToolbar = (MaterialToolbar) findViewById(R.id.topAppBar);
+        setSupportActionBar(materialToolbar);
+
 
         GeneratePwd generatePwd = new GeneratePwd();
 
+        //生成密码
         generate_button.setOnClickListener(view -> {
             //隐藏键盘
             ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -98,6 +109,10 @@ public class MyPwdMainActivity extends AppCompatActivity {
 
     }
 
+
+
+
+
     //复制至剪贴板
     public static class Utils {
 
@@ -113,7 +128,7 @@ public class MyPwdMainActivity extends AppCompatActivity {
 
     }
 
-
+    //生成密码类
     private class GeneratePwd{
 
 
@@ -217,4 +232,25 @@ public class MyPwdMainActivity extends AppCompatActivity {
 
     }
 
-}
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.toolbar,menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent = null;
+        switch (item.getItemId()){
+            case R.id.menu_changePwd:
+                intent  = new Intent(this,ChangePwdActivity.class);
+                break;
+            case R.id.menu_pwdNote:
+                Toast.makeText(this, "尚未开放", Toast.LENGTH_SHORT).show();
+            default:
+        }
+        startActivity(intent);
+        return true;
+    }
+
+    }
+
