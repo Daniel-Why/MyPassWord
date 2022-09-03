@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 public void afterTextChanged(Editable editable) {
                     String confirm_pwd_text = confirm_pwd.getText().toString();
                     String input_pwd_text = input_pwd.getText().toString();
-                    Log.d("MA","confirm_pwd_text:"+confirm_pwd_text);
-                    Log.d("MA","input_pwd_text:"+input_pwd_text);
 
 
                     if (confirm_pwd_text.equals(input_pwd_text)){
@@ -67,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
                     }else{
                         confirm_pwd_layout.setError("两次密码输入不一致");
-                        Log.d("MA","不同"+confirm_pwd_text);
                     }
 
                 }

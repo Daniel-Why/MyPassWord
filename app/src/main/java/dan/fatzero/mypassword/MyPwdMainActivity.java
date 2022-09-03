@@ -240,15 +240,21 @@ public class MyPwdMainActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item){
         Intent intent = null;
+        Boolean caseTag = false;
         switch (item.getItemId()){
             case R.id.menu_changePwd:
                 intent  = new Intent(this,ChangePwdActivity.class);
+                caseTag = true;
                 break;
             case R.id.menu_pwdNote:
                 Toast.makeText(this, "尚未开放", Toast.LENGTH_SHORT).show();
+                caseTag = false;
             default:
         }
-        startActivity(intent);
+        if(caseTag){
+            startActivity(intent);
+            caseTag =false;
+        }
         return true;
     }
 
