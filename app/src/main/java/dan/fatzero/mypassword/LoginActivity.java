@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "认证成功！", Toast.LENGTH_SHORT).show();
                 //从临时存储SharedPreferences，中获取此认证页应该跳转的目标页id，并生成intent
                 // 从不同页面进入认证后，可以跳转至不同页面
-                intent = baseFunc_jump2target.jump_target_intent(LoginActivity.this);
+                intent = baseFunc_jump2target.jump_target_intent();
                 startActivity(intent);
                 finish();
             }else {

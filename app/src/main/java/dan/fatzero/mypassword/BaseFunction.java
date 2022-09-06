@@ -1,6 +1,5 @@
 package dan.fatzero.mypassword;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -23,8 +22,7 @@ public class BaseFunction extends AppCompatActivity {
             e.printStackTrace();
         }
         //16是表示转换为16进制数
-        String md5Str = new BigInteger(1, digest).toString(16);
-        return md5Str;
+        return new BigInteger(1, digest).toString(16);
     }
 
 
@@ -53,7 +51,7 @@ public class BaseFunction extends AppCompatActivity {
         }
 
         // 找到需要跳转的页面并设置intent
-        public Intent jump_target_intent(Context context){
+        public Intent jump_target_intent(){
             Intent intent;
             Class<?> targetClass = null;
             Integer jump_target = get_jump_target();

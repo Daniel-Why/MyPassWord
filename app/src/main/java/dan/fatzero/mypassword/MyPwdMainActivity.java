@@ -1,5 +1,6 @@
 package dan.fatzero.mypassword;
 
+import android.annotation.SuppressLint;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -36,7 +37,7 @@ private GeneratePassword generatePassword;
         Button copy_button = findViewById(R.id.copyButton);
         Chip setPwdCaps = findViewById(R.id.setPwdCaps);
         Chip setPwdSpeChar = findViewById(R.id.setPwdSpeChar);
-        MaterialToolbar materialToolbar = (MaterialToolbar) findViewById(R.id.topAppBar);
+        MaterialToolbar materialToolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(materialToolbar);
 
 
@@ -128,12 +129,13 @@ private GeneratePassword generatePassword;
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     public boolean onOptionsItemSelected(MenuItem item){
         //创建临时存储SharedPreferences，并在其中缓存当前页应跳转到认证页后，应该跳转的目标页id
 
 
         Intent intent = null;
-        Boolean caseTag = false;
+        boolean caseTag = false;
         switch (item.getItemId()){
             case R.id.menu_changePwd:
                 intent  = new Intent(this,ChangePwdActivity.class);
@@ -149,8 +151,6 @@ private GeneratePassword generatePassword;
         }
         if(caseTag){
             startActivity(intent);
-            caseTag =false;
-
         }
         return true;
     }

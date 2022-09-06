@@ -22,8 +22,6 @@ public class NotebookActivity extends AppCompatActivity {
         materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NotebookActivity.this,MyPwdMainActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
