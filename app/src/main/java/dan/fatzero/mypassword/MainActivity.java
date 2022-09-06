@@ -3,6 +3,7 @@ package dan.fatzero.mypassword;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
         TextInputLayout confirm_pwd_layout = (TextInputLayout) findViewById(R.id.confirm_pwd_layout);
 
         baseFunc = new BaseFunction();
+
+
+        baseFunc.share_jump_target(0);//将当前页面位置置为0
 
         dbHelper = new MyDatabaseHelper(this,"UserPwd.dp",null,1);
         dbHelper.getWritableDatabase();

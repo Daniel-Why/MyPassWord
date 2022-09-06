@@ -4,7 +4,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
@@ -18,17 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.chip.Chip;
 
-import org.apache.commons.lang.StringUtils;
-
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Random;
-
 public class MyPwdMainActivity extends AppCompatActivity {
 
 private GeneratePassword generatePassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +129,7 @@ private GeneratePassword generatePassword;
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
+        BaseFunction baseFunc = new BaseFunction();
         Intent intent = null;
         Boolean caseTag = false;
         switch (item.getItemId()){
@@ -145,8 +138,9 @@ private GeneratePassword generatePassword;
                 caseTag = true;
                 break;
             case R.id.menu_pwdNote:
-                Toast.makeText(this, "尚未开放", Toast.LENGTH_SHORT).show();
-                caseTag = false;
+                baseFunc.share_jump_target(1);
+                intent = new Intent(this,LoginActivity.class);
+                caseTag = true;
             default:
         }
         if(caseTag){
