@@ -33,10 +33,12 @@ public class MainActivity extends AppCompatActivity {
         EditText confirm_pwd = (EditText) findViewById(R.id.confirm_pwd);
         TextInputLayout confirm_pwd_layout = (TextInputLayout) findViewById(R.id.confirm_pwd_layout);
 
+
         baseFunc = new BaseFunction();
 
-
-        baseFunc.share_jump_target(0);//将当前页面位置置为0
+        //创建临时存储SharedPreferences，并在其中缓存当前页应跳转到认证页后，应该跳转的目标页id
+        BaseFunction.jump2target baseFunc_jump2target = new BaseFunction.jump2target();
+        baseFunc_jump2target.share_jump_target(0);//认证后，应跳转至生成密码（MyPwdMainActivity）页面
 
         dbHelper = new MyDatabaseHelper(this,"UserPwd.dp",null,1);
         dbHelper.getWritableDatabase();

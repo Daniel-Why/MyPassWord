@@ -27,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
 
         dbHelper = new MyDatabaseHelper(this,"UserPwd.dp",null,1);
         baseFunc = new BaseFunction();
+        // 实例化对象 jump2target
+        BaseFunction.jump2target baseFunc_jump2target = new BaseFunction.jump2target();
 
         EditText login_pwd = findViewById(R.id.login_pwd);
         Button login_button = findViewById(R.id.login_button);
@@ -44,7 +46,9 @@ public class LoginActivity extends AppCompatActivity {
             String hash_pwd_text = baseFunc.getMD5Str(login_pwd_text);
             if(hash_pwd_text.equals(password)){
                 Toast.makeText(LoginActivity.this, "认证成功！", Toast.LENGTH_SHORT).show();
-                intent = baseFunc.jump_target_intent(LoginActivity.this);
+                //从临时存储SharedPreferences，中获取此认证页应该跳转的目标页id，并生成intent
+                // 从不同页面进入认证后，可以跳转至不同页面
+                intent = baseFunc_jump2target.jump_target_intent(LoginActivity.this);
                 startActivity(intent);
                 finish();
             }else {

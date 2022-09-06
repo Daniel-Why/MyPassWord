@@ -129,7 +129,9 @@ private GeneratePassword generatePassword;
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
-        BaseFunction baseFunc = new BaseFunction();
+        //创建临时存储SharedPreferences，并在其中缓存当前页应跳转到认证页后，应该跳转的目标页id
+
+
         Intent intent = null;
         Boolean caseTag = false;
         switch (item.getItemId()){
@@ -138,7 +140,9 @@ private GeneratePassword generatePassword;
                 caseTag = true;
                 break;
             case R.id.menu_pwdNote:
-                baseFunc.share_jump_target(1);
+                //创建临时存储SharedPreferences，并在其中缓存当前页应跳转到认证页后，应该跳转的目标页id
+                BaseFunction.jump2target baseFunc_jump2target = new BaseFunction.jump2target();
+                baseFunc_jump2target.share_jump_target(1);//认证后，应跳转至密码本（NootebookActivity）页面
                 intent = new Intent(this,LoginActivity.class);
                 caseTag = true;
             default:
@@ -146,6 +150,7 @@ private GeneratePassword generatePassword;
         if(caseTag){
             startActivity(intent);
             caseTag =false;
+
         }
         return true;
     }
