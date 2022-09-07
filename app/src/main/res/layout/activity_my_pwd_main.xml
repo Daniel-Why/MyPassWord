@@ -156,6 +156,16 @@
                         android:textSize="10sp"
                         app:iconSize="18dp"
                         />
+                    <Button
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:id="@+id/saveButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="保存"
+                        app:icon="@drawable/ic_copy"
+                        android:textSize="10sp"
+                        app:iconSize="18dp"
+                        />
 
                 </LinearLayout>
 

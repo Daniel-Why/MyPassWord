@@ -5,6 +5,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
@@ -18,9 +19,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.chip.Chip;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyPwdMainActivity extends AppCompatActivity {
 
 private GeneratePassword generatePassword;
+private List data_list;
+
 
 
     @Override
@@ -35,12 +41,15 @@ private GeneratePassword generatePassword;
         Button generate_button=  findViewById(R.id.generate_button);
         TextView generate_pwd = findViewById(R.id.generate_pwd);
         Button copy_button = findViewById(R.id.copyButton);
+        Button save_button = findViewById(R.id.saveButton);
         Chip setPwdCaps = findViewById(R.id.setPwdCaps);
         Chip setPwdSpeChar = findViewById(R.id.setPwdSpeChar);
         MaterialToolbar materialToolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(materialToolbar);
 
 
+
+        // 调用生成密码类
         generatePassword = new GeneratePassword();
 
         //生成密码
@@ -54,10 +63,13 @@ private GeneratePassword generatePassword;
             String pwdArg2 = setPwsArg2.getText().toString();
             String pwdSeed = setPwsSeed.getText().toString();
             String pwdLen= setPwsLen.getText().toString();
-            int pwdSeed_num ;
-            int pwdLen_num ;
+
+            int alg_id;
+            int pwdLen_num;
+            int pwdSeed_num;
             int pwdCaps;
             int pwdSpeChar;
+            String[] args;
 
             // ”大写字母“ 复选框是否开启
             if(setPwdCaps.isChecked()){
@@ -87,16 +99,32 @@ private GeneratePassword generatePassword;
                 pwdLen_num = 8;
             }
 
-            String[] args = {pwdArg1,pwdArg2};
-            String pwdRaw = generatePassword.main(1,pwdLen_num,pwdSeed_num,pwdCaps,pwdSpeChar,args);
+            args = new String[]{pwdArg1, pwdArg2};
+            alg_id = 1;//算法id,当前只有一个算法，默认取1
+            String pwdRaw = generatePassword.main(alg_id,pwdLen_num,pwdSeed_num,pwdCaps,pwdSpeChar,args);
            //String pwdRaw = generatePwd.main(1,pwdLen_num,pwdSeed_num,pwdCaps,pwdSpeChar,args);
             generate_pwd.setText(pwdRaw);
             Toast.makeText(MyPwdMainActivity.this, "密码已生成", Toast.LENGTH_SHORT).show();
+
+            data_list = new ArrayList<Integer>();
+            data_list.add(alg_id);
+            data_list.add(pwdLen_num);
+            data_list.add(pwdSeed_num);
+            data_list.add(pwdCaps);
+            data_list.add(pwdSpeChar);
+            //data_list.add(args);
+
+            Log.d("SPD", "1:"+data_list);
         });
 
         copy_button.setOnClickListener(view -> {
             Utils.copyToClipboard(this,generate_pwd.getText().toString());
             Toast.makeText(MyPwdMainActivity.this,"复制完成",Toast.LENGTH_SHORT).show();
+        });
+
+        save_button.setOnClickListener(view -> {
+            Log.d("SPD", "2:" + data_list);
+            popSavePwdDialog("保存密码","密码将保存至密码本", (ArrayList<Integer>) data_list);
         });
 
 
@@ -153,6 +181,18 @@ private GeneratePassword generatePassword;
             startActivity(intent);
         }
         return true;
+    }
+
+    // Dialog 保存密码
+    private void popSavePwdDialog(String title, String content,ArrayList<Integer>  data_list) {
+        SavePwdDialog dialog = new SavePwdDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString(SavePwdDialog.K_TITLE, title);
+        bundle.putString(SavePwdDialog.K_CONTENT, content);
+        bundle.putIntegerArrayList("data_list",data_list);
+        dialog.setArguments(bundle);
+        dialog.show(getSupportFragmentManager(), "one-tag");
+        dialog.setStateListener(dialog::dismiss);
     }
 
     }

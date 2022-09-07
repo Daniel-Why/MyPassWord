@@ -9,11 +9,12 @@ import android.view.View;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class NotebookActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notebook);
+
+
 
         //设置 toolbar
         MaterialToolbar materialToolbar = (MaterialToolbar) findViewById(R.id.topAppBar_noteBook);
@@ -24,6 +25,10 @@ public class NotebookActivity extends AppCompatActivity {
             public void onClick(View view) {
                 finish();
             }
+        //Dialog 测试
+
         });
     }
+
+
 }
