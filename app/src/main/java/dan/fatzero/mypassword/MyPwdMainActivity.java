@@ -20,12 +20,11 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MyPwdMainActivity extends AppCompatActivity {
 
 private GeneratePassword generatePassword;
-private List data_list;
+private String pwd;
 
 
 
@@ -101,20 +100,10 @@ private List data_list;
 
             args = new String[]{pwdArg1, pwdArg2};
             alg_id = 1;//算法id,当前只有一个算法，默认取1
-            String pwdRaw = generatePassword.main(alg_id,pwdLen_num,pwdSeed_num,pwdCaps,pwdSpeChar,args);
-           //String pwdRaw = generatePwd.main(1,pwdLen_num,pwdSeed_num,pwdCaps,pwdSpeChar,args);
-            generate_pwd.setText(pwdRaw);
+            pwd= generatePassword.main(alg_id,pwdLen_num,pwdSeed_num,pwdCaps,pwdSpeChar,args);
+            generate_pwd.setText(pwd);
             Toast.makeText(MyPwdMainActivity.this, "密码已生成", Toast.LENGTH_SHORT).show();
 
-            data_list = new ArrayList<Integer>();
-            data_list.add(alg_id);
-            data_list.add(pwdLen_num);
-            data_list.add(pwdSeed_num);
-            data_list.add(pwdCaps);
-            data_list.add(pwdSpeChar);
-            //data_list.add(args);
-
-            Log.d("SPD", "1:"+data_list);
         });
 
         copy_button.setOnClickListener(view -> {
@@ -123,8 +112,7 @@ private List data_list;
         });
 
         save_button.setOnClickListener(view -> {
-            Log.d("SPD", "2:" + data_list);
-            popSavePwdDialog("保存密码","密码将保存至密码本", (ArrayList<Integer>) data_list);
+            popSavePwdDialog("保存密码","密码将保存至密码本",pwd);
         });
 
 
@@ -151,12 +139,13 @@ private List data_list;
     }
 
 
-
+    // 引入toolbar menu
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.toolbar,menu);
         return true;
     }
 
+    // menu 跳转
     @SuppressLint("NonConstantResourceId")
     public boolean onOptionsItemSelected(MenuItem item){
         //创建临时存储SharedPreferences，并在其中缓存当前页应跳转到认证页后，应该跳转的目标页id
@@ -184,12 +173,12 @@ private List data_list;
     }
 
     // Dialog 保存密码
-    private void popSavePwdDialog(String title, String content,ArrayList<Integer>  data_list) {
+    private void popSavePwdDialog(String title, String content,String pwd) {
         SavePwdDialog dialog = new SavePwdDialog();
         Bundle bundle = new Bundle();
         bundle.putString(SavePwdDialog.K_TITLE, title);
         bundle.putString(SavePwdDialog.K_CONTENT, content);
-        bundle.putIntegerArrayList("data_list",data_list);
+        bundle.putString(SavePwdDialog.K_Pwd, pwd);
         dialog.setArguments(bundle);
         dialog.show(getSupportFragmentManager(), "one-tag");
         dialog.setStateListener(dialog::dismiss);

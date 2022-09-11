@@ -18,14 +18,16 @@ import java.util.ArrayList;
 public class SavePwdDialog extends DialogFragment {
     public static final String K_TITLE = "k_title";
     public static final String K_CONTENT = "k_content";
-    public static final ArrayList<Integer> data_list = new ArrayList<>();
+    public static final String K_Pwd= "k_pwd";
+
 
     private String title;
     private String content;
+    private String pwd;
     private View mRootView;
     private Button btn_close;
     private stateListener mStateListener;
-    private ArrayList<Integer> datas;
+
 
 
     @Override
@@ -35,9 +37,9 @@ public class SavePwdDialog extends DialogFragment {
         if (in != null) {
             title = in.getString(K_TITLE);
             content = in.getString(K_CONTENT);
-            datas = in.getIntegerArrayList("data_list");
-        }
-        Log.d("SPD", String.valueOf(datas));
+            pwd = in.getString(K_Pwd);
+        };
+
         Log.d("SPD", title);
     }
 
