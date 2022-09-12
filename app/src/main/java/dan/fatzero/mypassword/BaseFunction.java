@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +14,6 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -97,7 +95,7 @@ public class BaseFunction extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-            if(fos!=null){
+             if(fos!=null){
                 try {
                     fos.close();
                     Log.d("SFile","内部存储保存成功");
@@ -152,12 +150,12 @@ public class BaseFunction extends AppCompatActivity {
 
 
 
-
+    //密钥相关
     public static class SymmetricalEncryptionUtils{
         // 生成密钥
-        private SecretKeySpec keyGenerate() {
+        private SecretKeySpec keyGenerate(String keyRule) {
             SecretKeySpec keyBytes;
-            StringBuilder RULE = new StringBuilder("123456112345611234561123456112345611234561");
+            StringBuilder RULE = new StringBuilder("keyRule");
             try {
                 if(RULE.length()<16){
                     while (RULE.length()<16) {
@@ -178,11 +176,11 @@ public class BaseFunction extends AppCompatActivity {
 
 
         //加密
-        public String encodeString (String str){
+        public String encodeString (String str,String keyRule){
             byte[] result;
             String encryptString;
             try {
-                SecretKeySpec keyBytes = keyGenerate();
+                SecretKeySpec keyBytes = keyGenerate(keyRule);
                 Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
                 cipher.init(Cipher.ENCRYPT_MODE,keyBytes);
                 result = cipher.doFinal(str.getBytes());
@@ -195,10 +193,10 @@ public class BaseFunction extends AppCompatActivity {
         }
 
         //解密
-        public String decodeString (String encryptString){
+        public String decodeString (String encryptString,String keyRule){
             String decryptString;
             try{
-                SecretKeySpec keyBytes = keyGenerate();
+                SecretKeySpec keyBytes = keyGenerate(keyRule);
                 byte[] encodeByte = android.util.Base64.decode(encryptString,Base64.DEFAULT);
                 Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
                 cipher.init(Cipher.DECRYPT_MODE,keyBytes);
@@ -209,8 +207,11 @@ public class BaseFunction extends AppCompatActivity {
             }
             return decryptString;
         }
+
     }
 
+
+    //页面跳转
     public static class jump2target{
     /*
     案例说明

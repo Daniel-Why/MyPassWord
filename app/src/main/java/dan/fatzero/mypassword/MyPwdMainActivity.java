@@ -103,6 +103,13 @@ private String pwd;
             pwd= generatePassword.main(alg_id,pwdLen_num,pwdSeed_num,pwdCaps,pwdSpeChar,args);
             generate_pwd.setText(pwd);
             Toast.makeText(MyPwdMainActivity.this, "密码已生成", Toast.LENGTH_SHORT).show();
+            if(pwd != null){
+                copy_button.setEnabled(true);
+                save_button.setEnabled(true);
+            }else{
+                copy_button.setEnabled(false);
+                save_button.setEnabled(false);
+            }
 
         });
 
@@ -161,7 +168,7 @@ private String pwd;
             case R.id.menu_pwdNote:
                 //创建临时存储SharedPreferences，并在其中缓存当前页应跳转到认证页后，应该跳转的目标页id
                 BaseFunction.jump2target baseFunc_jump2target = new BaseFunction.jump2target();
-                baseFunc_jump2target.share_jump_target(1);//认证后，应跳转至密码本（NootebookActivity）页面
+                baseFunc_jump2target.share_jump_target(1);//认证后，应跳转至密码本（NotebookActivity）页面
                 intent = new Intent(this,LoginActivity.class);
                 caseTag = true;
             default:

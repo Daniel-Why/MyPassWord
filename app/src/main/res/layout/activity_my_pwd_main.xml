@@ -149,20 +149,20 @@
                     <Button
                         style="@style/Widget.Material3.Button.TextButton"
                         android:id="@+id/copyButton"
-                        android:layout_width="wrap_content"
+                        android:layout_width="42sp"
                         android:layout_height="wrap_content"
-                        android:text="复制"
                         app:icon="@drawable/ic_copy"
+                        android:enabled="false"
                         android:textSize="10sp"
                         app:iconSize="18dp"
                         />
                     <Button
                         style="@style/Widget.Material3.Button.TextButton"
                         android:id="@+id/saveButton"
-                        android:layout_width="wrap_content"
+                        android:layout_width="42sp"
                         android:layout_height="wrap_content"
-                        android:text="保存"
-                        app:icon="@drawable/ic_copy"
+                        android:enabled="false"
+                        app:icon="@drawable/ic_save"
                         android:textSize="10sp"
                         app:iconSize="18dp"
                         />

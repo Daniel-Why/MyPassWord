@@ -1,10 +1,16 @@
 package dan.fatzero.mypassword;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,7 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import java.util.ArrayList;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class SavePwdDialog extends DialogFragment {
     public static final String K_TITLE = "k_title";
@@ -38,9 +44,10 @@ public class SavePwdDialog extends DialogFragment {
             title = in.getString(K_TITLE);
             content = in.getString(K_CONTENT);
             pwd = in.getString(K_Pwd);
-        };
+        }
 
-        Log.d("SPD", title);
+        Log.d("SDia","pwd: "+pwd);
+
     }
 
     @Nullable
@@ -64,13 +71,56 @@ public class SavePwdDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         TextView titleTv = view.findViewById(R.id.save_title);
         TextView contentTv = view.findViewById(R.id.save_content);
-        Button button = view.findViewById(R.id.dialog_saved_button);
+        TextView saveName = view.findViewById(R.id.save_name);
+        Button savedButton = view.findViewById(R.id.dialog_saved_button);
+        TextInputLayout saveNameLayout = view.findViewById(R.id.save_name_layout);
+
+        EncryptAndDecrypt encryptAndDecrypt = new EncryptAndDecrypt();
+        MyDatabaseHelper dbHelper = new MyDatabaseHelper(GlobalApplication.getAppContext(), "PwdNote.dp", null, 1);
+        dbHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         titleTv.setText(title);
         contentTv.setText(content);
-        button.setOnClickListener(view1 -> {
+
+        //监听密码名称输入框
+        saveName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String saveNameText = saveName.getText().toString();
+                if(!saveNameText.equals("")){
+                    savedButton.setEnabled(true);
+                    saveNameLayout.setErrorEnabled(false);
+
+                }else {
+                    saveNameLayout.setError("请输入名称！");
+                    savedButton.setEnabled(false);
+
+                }
+            }
+        });
+
+        //按钮监听
+        savedButton.setOnClickListener(view1 -> {
             Log.d("SDia","this is dialog");
-            Toast.makeText(GlobalApplication.getAppContext(),"this is dialog",Toast.LENGTH_SHORT).show();
+            String encodeString = encryptAndDecrypt.encodeModel01(pwd);
+            ContentValues values = new ContentValues();
+            values.put("name",saveName.getText().toString());
+            values.put("password",encodeString);
+            db.insert("PwdNote",null,values);
+            values.clear();
+            Toast.makeText(GlobalApplication.getAppContext(),saveName.getText().toString()+" 保存成功！",Toast.LENGTH_SHORT).show();
+            mStateListener.close();
         });
     }
 

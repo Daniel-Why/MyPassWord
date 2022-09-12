@@ -16,26 +16,11 @@ public class NotebookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notebook);
 
-        BaseFunction.SymmetricalEncryptionUtils symEncryptionUtils = new BaseFunction.SymmetricalEncryptionUtils();
-        BaseFunction baseFunction = new BaseFunction();
-
-        String encodeString = symEncryptionUtils.encodeString("apple");
-        Log.d("AES","加密："+ encodeString);
-
-        String decodeString = symEncryptionUtils.decodeString(encodeString);
-        Log.d("AES","解密："+ decodeString);
-
-        String uuid = baseFunction.getUUID();
-        Log.d("SFile","UUID:"+uuid);
-        baseFunction.saveExternalFile(uuid,"uuid.txt",false);
-        String euuid = baseFunction.getExternalFile("uuid.txt");
-        Log.d("SFile","EUUID:"+euuid);
-
-
-        baseFunction.saveInternalFile(uuid,"uuid.txt",false);
-        String iuuid = baseFunction.getInternalFile("uuid.txt");
-        Log.d("SFile","IUUID:"+iuuid);
-
+        EncryptAndDecrypt encryptAndDecrypt = new EncryptAndDecrypt();
+        String encodeString = encryptAndDecrypt.encodeModel01("apple");
+        Log.d("DencodeModel","encode:"+encodeString);
+        String decodeString = encryptAndDecrypt.decodeModel01(encodeString);
+        Log.d("DencodeModel","decode:"+decodeString);
 
 
 
