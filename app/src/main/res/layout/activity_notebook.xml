@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ChangePwdActivity">
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,22 +26,13 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginHorizontal="20sp">
+        <dan.fatzero.mypassword.ListViewForScrollView
+            android:id="@+id/pwdList_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context=".MainActivity"
-            android:gravity="center_vertical"
-            android:layout_margin="20sp">
-        <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello World"
-        />
-
-        </LinearLayout>
+            />
 
     </androidx.core.widget.NestedScrollView>
 
