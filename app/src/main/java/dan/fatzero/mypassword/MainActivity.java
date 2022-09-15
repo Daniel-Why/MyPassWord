@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class MainActivity extends AppCompatActivity {
-    private MyDatabaseHelper dbHelper;
     private BaseFunction baseFunc;
 
     @Override
@@ -27,14 +25,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-        Button setPwd = (Button)  findViewById(R.id.set_pwd);
-        EditText input_pwd = (EditText) findViewById(R.id.input_pwd);
-        EditText confirm_pwd = (EditText) findViewById(R.id.confirm_pwd);
-        TextInputLayout confirm_pwd_layout = (TextInputLayout) findViewById(R.id.confirm_pwd_layout);
+        Button setPwd = findViewById(R.id.set_pwd);
+        EditText input_pwd = findViewById(R.id.input_pwd);
+        EditText confirm_pwd = findViewById(R.id.confirm_pwd);
+        TextInputLayout confirm_pwd_layout = findViewById(R.id.confirm_pwd_layout);
+
 
         baseFunc = new BaseFunction();
 
-        dbHelper = new MyDatabaseHelper(this,"UserPwd.dp",null,1);
+        //创建临时存储SharedPreferences，并在其中缓存当前页应跳转到认证页后，应该跳转的目标页id
+        BaseFunction.jump2target baseFunc_jump2target = new BaseFunction.jump2target();
+        baseFunc_jump2target.share_jump_target(0);//认证后，应跳转至生成密码（MyPwdMainActivity）页面
+
+        MyDatabaseHelper dbHelper = new MyDatabaseHelper(this, "UserPwd.dp", null, 1);
         dbHelper.getWritableDatabase();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor cursor = db.query("UserPwd",null,null,null,null,null,null);

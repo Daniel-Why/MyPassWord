@@ -16,19 +16,22 @@ import androidx.appcompat.app.AppCompatActivity;
 public class LoginActivity extends AppCompatActivity {
     private MyDatabaseHelper dbHelper;
     private BaseFunction baseFunc;
+    private  Intent intent = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Intent intent = new Intent(LoginActivity.this,MyPwdMainActivity.class);
+        //Intent intent = new Intent(LoginActivity.this,MyPwdMainActivity.class);
 
 
         dbHelper = new MyDatabaseHelper(this,"UserPwd.dp",null,1);
         baseFunc = new BaseFunction();
+        // 实例化对象 jump2target
+        BaseFunction.jump2target baseFunc_jump2target = new BaseFunction.jump2target();
 
-        EditText login_pwd = (EditText) findViewById(R.id.login_pwd);
-        Button login_button = (Button) findViewById(R.id.login_button);
+        EditText login_pwd = findViewById(R.id.login_pwd);
+        Button login_button = findViewById(R.id.login_button);
 
         login_button.setOnClickListener(view -> {
             //隐藏键盘
@@ -42,7 +45,10 @@ public class LoginActivity extends AppCompatActivity {
             String login_pwd_text = login_pwd.getText().toString();
             String hash_pwd_text = baseFunc.getMD5Str(login_pwd_text);
             if(hash_pwd_text.equals(password)){
-                Toast.makeText(LoginActivity.this, "登录成功！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "认证成功！", Toast.LENGTH_SHORT).show();
+                //从临时存储SharedPreferences，中获取此认证页应该跳转的目标页id，并生成intent
+                // 从不同页面进入认证后，可以跳转至不同页面
+                intent = baseFunc_jump2target.jump_target_intent();
                 startActivity(intent);
                 finish();
             }else {

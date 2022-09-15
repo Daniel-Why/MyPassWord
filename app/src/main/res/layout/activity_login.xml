@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8sp"
-        android:text="密方个人密码生成软件"
+        android:text="密码验证"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/purple_500"/>
     <com.google.android.material.textfield.TextInputLayout
@@ -35,7 +35,7 @@
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="登录"
+        android:text="认证"
         android:layout_gravity="center"/>
 
 
