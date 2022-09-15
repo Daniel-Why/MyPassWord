@@ -53,7 +53,6 @@ public class NotebookActivity extends AppCompatActivity {
 
             //Dialog显示
             popShowPwdDialog(pwdList.getPwd_name(),"显示密码",password);
-            Toast.makeText(NotebookActivity.this,pwdList.getPwd_id().toString(),Toast.LENGTH_SHORT).show();
         });
 
 
