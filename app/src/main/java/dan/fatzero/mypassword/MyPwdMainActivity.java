@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 public class MyPwdMainActivity extends AppCompatActivity {
 
 private GeneratePassword generatePassword;
+private BaseFunction baseFunction;
 private String pwd;
 
 
@@ -38,6 +40,7 @@ private String pwd;
         EditText setPwsSeed = findViewById(R.id.setPwsSeed);
         EditText setPwsLen =  findViewById(R.id.setPwdLen);
         Button generate_button=  findViewById(R.id.generate_button);
+        Button clear_button = findViewById(R.id.clear_button);
         TextView generate_pwd = findViewById(R.id.generate_pwd);
         Button copy_button = findViewById(R.id.copyButton);
         Button save_button = findViewById(R.id.saveButton);
@@ -45,7 +48,8 @@ private String pwd;
         Chip setPwdSpeChar = findViewById(R.id.setPwdSpeChar);
         MaterialToolbar materialToolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(materialToolbar);
-
+        //调用基础类
+        baseFunction = new BaseFunction();
 
 
         // 调用生成密码类
@@ -114,14 +118,29 @@ private String pwd;
         });
 
         copy_button.setOnClickListener(view -> {
-            Utils.copyToClipboard(this,generate_pwd.getText().toString());
-            Toast.makeText(MyPwdMainActivity.this,"复制完成",Toast.LENGTH_SHORT).show();
+            baseFunction.copyToClipboard(generate_pwd.getText().toString());
         });
 
         save_button.setOnClickListener(view -> {
             popSavePwdDialog("保存密码","密码将保存至密码本",pwd);
         });
 
+        clear_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setPwsArg1.setText(null);
+                setPwsArg2.setText(null);
+                setPwsSeed.setText(null);
+                setPwsLen.setText(null);
+                generate_pwd.setText("密码待生成...");
+                pwd = null;
+                Toast.makeText(MyPwdMainActivity.this,"已清空",Toast.LENGTH_SHORT).show();
+                copy_button.setEnabled(false);
+                save_button.setEnabled(false);
+
+
+            }
+        });
 
 
     }

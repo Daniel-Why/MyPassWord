@@ -2,11 +2,14 @@ package dan.fatzero.mypassword;
 
 //import org.apache.commons.codec.binary.Hex;
 
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +29,16 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 public class BaseFunction extends AppCompatActivity {
+    //复制剪贴板
+    public static void copyToClipboard(String content) {
+        // 从 API11 开始 android 推荐使用 android.content.ClipboardManager
+        // 为了兼容低版本我们这里使用旧版的 android.text.ClipboardManager，虽然提示 deprecated，但不影响使用。
+        ClipboardManager cm = (ClipboardManager) GlobalApplication.getAppContext().getSystemService(GlobalApplication.getAppContext().CLIPBOARD_SERVICE);
+        // 将文本内容放到系统剪贴板里。
+        cm.setText(content);
+        Toast.makeText( GlobalApplication.getAppContext(), "已复制到剪切板", Toast.LENGTH_SHORT).show();
+    }
+
     // 生成随机 UUID
     public String getUUID(){
         String uuid;
@@ -68,7 +81,7 @@ public class BaseFunction extends AppCompatActivity {
             fis.read(buffer);
 
         }catch (IOException e){
-            e.printStackTrace();;
+            e.printStackTrace();
         }finally {
             if (fis!=null){
                 try {
@@ -119,7 +132,7 @@ public class BaseFunction extends AppCompatActivity {
             fis.read(buffer);
 
         }catch (IOException e){
-            e.printStackTrace();;
+            e.printStackTrace();
         }finally {
             if (fis!=null){
                 try {
@@ -155,7 +168,7 @@ public class BaseFunction extends AppCompatActivity {
         // 生成密钥
         private SecretKeySpec keyGenerate(String keyRule) {
             SecretKeySpec keyBytes;
-            StringBuilder RULE = new StringBuilder("keyRule");
+            StringBuilder RULE = new StringBuilder(keyRule);
             try {
                 if(RULE.length()<16){
                     while (RULE.length()<16) {

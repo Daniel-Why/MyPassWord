@@ -125,14 +125,33 @@
                         android:checkable="true" />
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/generate_button"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="生成"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="16sp"
-                    />
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <Button
+                        android:id="@+id/generate_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="生成"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="16sp"
+                        android:layout_marginRight="4sp"
+                        />
+                    <Button
+                        android:id="@+id/clear_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="清空"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="16sp"
+                        android:layout_marginLeft="4sp"
+                        />
+                </LinearLayout>
+
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="60sp"
