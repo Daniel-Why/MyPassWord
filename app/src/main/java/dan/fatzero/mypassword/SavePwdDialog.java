@@ -46,7 +46,6 @@ public class SavePwdDialog extends DialogFragment {
             pwd = in.getString(K_Pwd);
         }
 
-        Log.d("SDia","pwd: "+pwd);
 
     }
 

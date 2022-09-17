@@ -1,11 +1,9 @@
 package dan.fatzero.mypassword;
 
 import android.annotation.SuppressLint;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.chip.Chip;
-
-import java.util.ArrayList;
 
 public class MyPwdMainActivity extends AppCompatActivity {
 
@@ -149,25 +145,10 @@ private String pwd;
 
 
 
-    //复制至剪贴板
-    public static class Utils {
-
-        // 将文本复制到剪切板
-        public static void copyToClipboard(Context context, String content) {
-            // 从 API11 开始 android 推荐使用 android.content.ClipboardManager
-            // 为了兼容低版本我们这里使用旧版的 android.text.ClipboardManager，虽然提示 deprecated，但不影响使用。
-            ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-            // 将文本内容放到系统剪贴板里。
-            cm.setText(content);
-            Toast.makeText(context, "已复制到剪切板", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
 
     // 引入toolbar menu
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.toolbar,menu);
+        getMenuInflater().inflate(R.menu.toolbar_menu_mypwdman_activity,menu);
         return true;
     }
 

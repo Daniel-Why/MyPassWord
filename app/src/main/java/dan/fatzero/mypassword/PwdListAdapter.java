@@ -46,4 +46,5 @@ public class PwdListAdapter extends ArrayAdapter<PwdList> {
         this.mOnItemDeleteListener = mOnItemDeleteListener;
     }
 
+
 }
