@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:icon="@drawable/ic_book"
+        android:shortcutId="go_to_notebook"
+        android:shortcutLongLabel="@string/short_cut_label"
+        android:shortcutShortLabel="@string/short_cut_label">
+        <!--最左侧或者添加桌面后显示的图标-->
+        <!--id标识-->
+        <!--长按显示的文字-->
+        <!--添加到桌面显示的文字-->
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="dan.fatzero.mypassword.LoginActivity"
+            android:targetPackage="dan.fatzero.mypassword" />
+        <!--第一个是意图标识-->
+        <!--第二个参数是希望打开的界面-->
+        <!--希望打开界面的包名-->
+    </shortcut>
+</shortcuts>
