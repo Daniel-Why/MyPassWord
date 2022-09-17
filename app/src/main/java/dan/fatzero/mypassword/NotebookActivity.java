@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,7 @@ public class NotebookActivity extends AppCompatActivity {
 
     private List<PwdList> pwdList_List = new ArrayList<>();
     private MyDatabaseHelper dbHelper;
+    private PwdListAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +36,7 @@ public class NotebookActivity extends AppCompatActivity {
 
         //pwd list
         initPwdList();
-        PwdListAdapter adapter = new PwdListAdapter(NotebookActivity.this,R.layout.pwd_list_item,pwdList_List);
+        adapter = new PwdListAdapter(NotebookActivity.this,R.layout.pwd_list_item,pwdList_List);
         ListViewForScrollView mlistView = findViewById(R.id.pwdList_listview);
         mlistView.setAdapter(adapter);
 
@@ -64,13 +67,26 @@ public class NotebookActivity extends AppCompatActivity {
             dbHelper = new MyDatabaseHelper(NotebookActivity.this,"PwdNote.dp",null,1);
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             db.delete("PwdNote","id = ?",new String[]{String.valueOf(pwdId)});
-
             //从listview中删除
             pwdList_List.remove(i);
             Toast.makeText(NotebookActivity.this,"删除成功",Toast.LENGTH_SHORT).show();
             //刷新 adapter
             adapter.notifyDataSetChanged();
         });
+    }
+    // 添加 toolbar menu
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.toolbar_menu_notebook_activity,menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.menu_addPwd:
+                popAddPwdDialog("添加密码","添加用户自定义设置的密码");
+            default:
+        }
+        return true;
 
     }
 
@@ -94,7 +110,7 @@ public class NotebookActivity extends AppCompatActivity {
 
     }
 
-    // Dialog 保存密码
+    // Dialog 显示密码
     private void popShowPwdDialog(String title, String content,String pwd) {
         ShowPwdDialog dialog = new ShowPwdDialog();
         Bundle bundle = new Bundle();
@@ -105,6 +121,26 @@ public class NotebookActivity extends AppCompatActivity {
         dialog.show(getSupportFragmentManager(), "one-tag");
         dialog.setStateListener(dialog::dismiss);
     }
+
+    // Dialog 添加密码
+    private void popAddPwdDialog(String title, String content) {
+        AddPwdDialog dialog = new AddPwdDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString(SavePwdDialog.K_TITLE, title);
+        bundle.putString(SavePwdDialog.K_CONTENT, content);
+        dialog.setArguments(bundle);
+        dialog.show(getSupportFragmentManager(), "one-tag");
+        dialog.setStateListener(dialog::dismiss);
+        //刷新listView
+        dialog.setmCallback(() -> {
+            pwdList_List.clear();
+            initPwdList();
+            adapter.notifyDataSetChanged();
+        });
+    }
+
+
+
 
 
 }

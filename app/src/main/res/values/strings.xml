@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">密方</string>
+    <string name="short_cut_label">密码本</string>
 </resources>

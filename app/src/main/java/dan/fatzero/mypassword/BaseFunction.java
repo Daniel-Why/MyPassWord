@@ -266,7 +266,7 @@ public class BaseFunction extends AppCompatActivity {
             }
             intent = new Intent(GlobalApplication.getAppContext(),targetClass);
             SharedPreferences.Editor editor = GlobalApplication.getAppContext().getSharedPreferences("data",MODE_PRIVATE).edit();
-            editor.putInt("jump_target",0);
+            editor.putInt("jump_target",1);
             editor.apply();
             Log.d("JumLog","jump_target Change");
 
