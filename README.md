@@ -42,8 +42,7 @@ This is my first Android app that I have written. I hope it can be of help to ev
 
 
 ## 工具截图 Screenshot
-
-![pic](https://github.com/Daniel-Why/MyPassWord/assets/48308251/0fb96116-c7a4-4775-be7b-e0d7d52957a4)
+<img src="https://github.com/Daniel-Why/MyPassWord/assets/48308251/0fb96116-c7a4-4775-be7b-e0d7d52957a4" width="400" alt="Screenshot">
 
 PS:感谢chatgpt的翻译支持
 Thank you for the translation support from ChatGPT.
