@@ -1,8 +1,10 @@
 # 密方- 密码工具 MyPassWord
 一个基于安卓系统的密码生成和管理工具，供密码创建困难户和密码遗忘困难户使用。密码仅存在本地，不会上传互联网，以保证数据安全。
+
 A password generation and management tool based on the Android system, designed for users who have difficulty creating passwords or remembering them.The passwords are stored locally and not uploaded to the internet, ensuring data security.
 
 这是我写的第一个安卓软件，望能够帮助到各位。
+
 This is my first Android app that I have written. I hope it can be of help to everyone.
 
 
